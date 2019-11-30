@@ -1,0 +1,100 @@
+﻿<Window x:Class="Dashboard.MainWindow"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Dashboard"
+        xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+     TextElement.FontWeight="Regular"
+     TextElement.FontSize="13"
+     TextOptions.TextFormattingMode="Ideal"
+     TextOptions.TextRenderingMode="Auto"
+     Background="{DynamicResource MaterialDesignPaper}"
+     FontFamily="{DynamicResource MaterialDesignFont}" Height="707" Width="954">
+
+    <Window.Resources>
+        <local:DivideValueConverter x:Key="DivideValueConverter"/>
+    </Window.Resources>
+
+    <Grid>
+        <materialDesign:Card Padding="32" Margin="16">
+            <TextBlock Style="{DynamicResource MaterialDesignTitleTextBlock}">My First Material Design App</TextBlock>
+        </materialDesign:Card>
+        <Button Content="Roll" HorizontalAlignment="Left" Margin="505,413,0,0" VerticalAlignment="Top" Width="75" Style = "{StaticResource MaterialDesignRaisedButton}"/>
+        <GroupBox Header="File Management" HorizontalAlignment="Left" Height="250" Margin="475,110,0,0" VerticalAlignment="Top" Width="455">
+            <Grid
+                HorizontalAlignment="Left"
+                Height="169"
+                Margin="0,0,-13,-3"
+                VerticalAlignment="Top"
+                Width="420">
+                <ListBox x:Name="openedItemsListBox" HorizontalAlignment="Left" Height="160" Margin="16,42,0,-33" VerticalAlignment="Top" Width="400" RenderTransformOrigin="0.5,0.5">
+                </ListBox>
+
+                <Button
+                    x:Name="openFileListBtn"
+                    Content="Open List of Things"
+                    HorizontalAlignment="Center"
+                    Margin="11,7,0,0"
+                    VerticalAlignment="Top"
+                    Width="207" 
+                    Click="openListOfThings"
+                    MouseDoubleClick="reopenItemFromList"
+                    ></Button>
+
+
+            </Grid>
+
+        </GroupBox>
+        <GroupBox Header="File Management" HorizontalAlignment="Left" Height="250" Margin="10,110,0,0" VerticalAlignment="Top" Width="455">
+            <Grid
+                HorizontalAlignment="Left"
+                Height="169"
+                Margin="0,0,-13,-3"
+                VerticalAlignment="Top"
+                Width="420">
+                <ListBox x:Name="openedItemsListBox1" HorizontalAlignment="Left" Height="160" Margin="16,42,0,-33" VerticalAlignment="Top" Width="400" RenderTransformOrigin="0.5,0.5"/>
+
+                <Button
+                    x:Name="openFileListBtn1"
+                    Content="Open List of Things"
+                    HorizontalAlignment="Center"
+                    Margin="11,7,0,0"
+                    VerticalAlignment="Top"
+                    Width="207" 
+                    Click="openListOfThings"
+                    MouseDoubleClick="reopenItemFromList"
+                    />
+
+
+            </Grid>
+
+        </GroupBox>
+        <dragablz:TabablzControl Margin="50,219,331,6">
+            <dragablz:TabablzControl.ItemContainerStyle>
+                <Style TargetType="{x:Type dragablz:DragablzItem}" BasedOn="{StaticResource MaterialDesignDragableTabItemStyle}">
+                    <!--
+                    The tab container is horizontally scrollable so there is not really a concept of "full width"
+                    However, you can bind its width to be a relative size based upon the parent control
+                    -->
+                    <Setter Property="Width" Value="{Binding ActualWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type dragablz:TabablzControl}}, Converter={StaticResource DivideValueConverter}, ConverterParameter=3}" />
+                </Style>
+            </dragablz:TabablzControl.ItemContainerStyle>
+            <dragablz:TabablzControl.InterTabController>
+                <dragablz:InterTabController />
+            </dragablz:TabablzControl.InterTabController>
+            <TabItem Header="TAB 1">
+                <TextBlock Text="TAB 1" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            </TabItem>
+            <TabItem Header="TAB 2">
+                <TextBlock Text="TAB 2" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            </TabItem>
+            <TabItem Header="TAB 3">
+                <TextBlock Text="TAB 3" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            </TabItem>
+        </dragablz:TabablzControl>
+
+    </Grid>
+</Window>
